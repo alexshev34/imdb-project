@@ -158,7 +158,7 @@ class Parser:
 
         res['technical specs'] = {}
         self.dict_set(res['technical specs'], 'Runtime', "".join(tree.xpath("//div[@class='txt-block' and h4[text()='Runtime:']]/time/text()")).strip())
-        self.dict_set(res['technical specs'], 'Sound Mix', "".join(tree.xpath("//div[@class='txt-block' and h4[text()='Sound Mix:']]/descendant-or-self::*[text()!='Sound Mix:']/text()")).replace('\n','').replace('  ','')).replace(u'\xa0', ' ')
+        self.dict_set(res['technical specs'], 'Sound Mix', "".join(tree.xpath("//div[@class='txt-block' and h4[text()='Sound Mix:']]/descendant-or-self::*[text()!='Sound Mix:']/text()")).replace('\n','').replace('  ','').replace(u'\xa0', ' '))
         self.dict_set(res['technical specs'], 'Color', "".join(tree.xpath("//div[@class='txt-block' and h4[text()='Color:']]/descendant-or-self::*[text()!='Color:']/text()")).replace('\n','').replace('  ',''))
         self.dict_set(res['technical specs'], 'Aspect Ratio', "".join(tree.xpath("//div[@class='txt-block' and h4[text()='Aspect Ratio:']]/text()")).strip())
         if res['technical specs'] == {}:
@@ -207,8 +207,8 @@ class Parser:
     def save(self, filename):
         """Сохраняем все данные, как json"""
         logging.info('Save to file %s, film count: %d' % (filename, len(self.data)))
-        with open(filename, 'w') as fp:
-            json.dump(self.data, fp)
+        with open(filename, 'w', encoding = 'utf-8') as fp:
+            json.dump(self.data, fp, ensure_ascii=False)
 
 
 
